@@ -54,10 +54,11 @@ def output_patient(patient):
                                                patient["Last"],
                                                patient["Age"],
                                                patient["Gender"],))
-    print("Their TSH records are: {}.".format(patient["TSH Data"]))
-    print("{} {}'s result is {} .".format(patient["First"],
+    print("TSH data: {}.".format(patient["TSH Data"]))
+    print("{} {}'s result is {} .\n".format(patient["First"],
                                           patient["Last"],
                                           patient["TSH Result"],))
+    return
 
 
 def declare_result(patient):
@@ -77,6 +78,25 @@ def declare_result(patient):
     return result
 
 
+def file_output(patient):
+    """This function outputs into a json the patient information.
+
+    :param patient: patient object containing various properties
+    """
+    import json
+    out_file = open("{}-{}.json".format(patient["First"], patient["Last"]),"w")
+    patient_dictionary = {}
+    patient_dictionary["First Name"] = patient["First"]
+    patient_dictionary["Last Name"] = patient["Last"]
+    patient_dictionary["Age"] = patient["Age"]
+    patient_dictionary["Gender"] = patient["Gender"]
+    patient_dictionary["Diagnosis"] = patient["TSH Result"]
+    patient_dictionary["TSH"] = patient["TSH Data"]
+    json.dump(patient_dictionary, out_file)
+    out_file.close()
+    return
+
+
 def main_code():
     """Main code: accomplished the goals of the homework assignment
     """
@@ -85,6 +105,7 @@ def main_code():
         result = declare_result(patient)
         patient["TSH Result"] = result
         output_patient(patient)
+        file_output(patient)
 
 
 if __name__ == "__main__":
