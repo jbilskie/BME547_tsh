@@ -56,8 +56,8 @@ def output_patient(patient):
                                                patient["Gender"],))
     print("TSH data: {}.".format(patient["TSH Data"]))
     print("{} {}'s result is {} .\n".format(patient["First"],
-                                          patient["Last"],
-                                          patient["TSH Result"],))
+                                            patient["Last"],
+                                            patient["TSH Result"],))
     return
 
 
@@ -84,7 +84,7 @@ def file_output(patient):
     :param patient: patient object containing various properties
     """
     import json
-    out_file = open("{}-{}.json".format(patient["First"], patient["Last"]),"w")
+    outfile = open("{}-{}.json".format(patient["First"], patient["Last"]), "w")
     patient_dictionary = {}
     patient_dictionary["First Name"] = patient["First"]
     patient_dictionary["Last Name"] = patient["Last"]
@@ -92,8 +92,8 @@ def file_output(patient):
     patient_dictionary["Gender"] = patient["Gender"]
     patient_dictionary["Diagnosis"] = patient["TSH Result"]
     patient_dictionary["TSH"] = patient["TSH Data"]
-    json.dump(patient_dictionary, out_file)
-    out_file.close()
+    json.dump(patient_dictionary, outfile)
+    outfile.close()
     return
 
 
