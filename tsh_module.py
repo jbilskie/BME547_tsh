@@ -18,7 +18,6 @@ def load_patient_data():
             tsh_data = tsh_data.strip().split(",")
             tsh_data.remove("TSH")
             new_patient = create_patient(fname, lname, age, gender, tsh_data)
-            output_patient(new_patient)
             my_patients.append(new_patient)
         else:
             still_finding_patients = False
@@ -41,7 +40,8 @@ def create_patient(firstname, lastname, age, gender, tsh_data):
                    "Last": lastname,
                    "Age": age,
                    "Gender": gender,
-                   "TSH Data": tsh_data}
+                   "TSH Data": tsh_data,
+                   "TSH Result": "unknown"}
     return new_patient
 
 
@@ -55,12 +55,36 @@ def output_patient(patient):
                                                patient["Age"],
                                                patient["Gender"],))
     print("Their TSH records are: {}.".format(patient["TSH Data"]))
+    print("{} {}'s result is {} .".format(patient["First"],
+                                          patient["Last"],
+                                          patient["TSH Result"],))
+
+
+def declare_result(patient):
+    """This function outputs whether the patient has hyper/hypothyroidism or not.
+
+    :param patient: patient object containing various properties
+
+    :returns: output string of diagnosis
+    """
+    patient["TSH Data"].sort()
+    if float(patient["TSH Data"][-1]) > 4:
+        result = 'hypothyroidism'
+    elif float(patient["TSH Data"][0]) < 1:
+        result = 'hyperthyroidism'
+    else:
+        result = 'normal thyroid function'
+    return result
 
 
 def main_code():
     """Main code: accomplished the goals of the homework assignment
     """
-    load_patient_data()
+    my_patients = load_patient_data()
+    for patient in my_patients:
+        result = declare_result(patient)
+        patient["TSH Result"] = result
+        output_patient(patient)
 
 
 if __name__ == "__main__":
