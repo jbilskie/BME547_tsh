@@ -14,3 +14,5 @@ Tests included are:
 - can a patient object be created correctly
 - can a hypothyroid diagnosis be properly made
 - can a hyperthyroid diagnosis be properly made
+
+Added sphinx documentation capability. Pushed through the documents it creates in /docs/_build.
